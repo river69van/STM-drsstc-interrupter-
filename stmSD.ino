@@ -111,11 +111,24 @@ void BUTTON_UP(){
 
       FREQ++; //increment le freq
       if(FREQ > 100)FREQ = 100;
+      if(ON_TIME > 200 && FREQ > 3){
+        ON_TIME = 200;
+        LCD_Print(ON_TIME,12,1);
+      }
+      else if(ON_TIME > 500 && FREQ < 4){
+        ON_TIME = 500;
+        LCD_Print(ON_TIME,12,1);
+      }
       LCD_Print(FREQ,9,0);
 
     }else{
       ON_TIME++; //increment le on_time
-      if(ON_TIME > 200)ON_TIME = 200;
+      if(ON_TIME > 200 && FREQ > 3){
+        ON_TIME = 200;
+      }
+      else if(ON_TIME > 500 && FREQ < 4){
+        ON_TIME = 500;
+      }
       LCD_Print(ON_TIME,12,1);
     }
   }
@@ -162,6 +175,15 @@ void BUTTON_DOWN(){
 
       FREQ--; //decrement le freq
       if(FREQ < 1)FREQ = 1;
+      
+      if(ON_TIME > 200 && FREQ > 3){
+        ON_TIME = 200;
+        LCD_Print(ON_TIME,12,1);
+      }
+      else if(ON_TIME > 500 && FREQ < 4){
+        ON_TIME = 500;
+        LCD_Print(ON_TIME,12,1);
+      }
       LCD_Print(FREQ,9,0);
 
     }else{
@@ -282,6 +304,7 @@ void setup() {
   pinMode(UpButton, INPUT_PULLUP);
   pinMode(DownButton, INPUT_PULLUP);
   pinMode(SelectButton, INPUT_PULLUP);
+  pinMode(ButtonBack, INPUT_PULLUP);
 
 
   attachInterrupt(digitalPinToInterrupt(SelectButton), BUTTON_SELECT, FALLING);     //Pin PB1
