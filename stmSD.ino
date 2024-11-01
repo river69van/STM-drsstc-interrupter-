@@ -55,7 +55,7 @@ const String Fname[] = {" ", "20thCenturyFox", "Alone", "On My Way", "An-Der-Sch
                   "LineWithoutAHook", "Little Einsteins", "LoveIsAnOpenDoor",
                   "Mayday", "monody", "Nutcracker", "Secrets",  
                   "Poker Face", "River Flows", "Save ur Tears", "SoldierPoetKing", 
-                  "Sweet Dreams", "TheOnlyException", "The Spectre", "Unity", "Wake Me Up", 
+                  "Sweet Dreams","The Spectre", "Unity", "Wake Me Up", 
                   "Wilhelm-Tell-(Ouverture)", "X mean", };
 byte SongID = 1; // This starts as one to start at A
 byte MaxSongID = 0;
@@ -269,6 +269,7 @@ void BACK(){
     FREQ = 1;
     ON_TIME = 100;
     Mmenu();
+    LCD_Print(F("  <"),12,0);
   }
 }
 
@@ -302,6 +303,8 @@ void setup() {
   LCD_Print(F("Playing ..."),0,0);
   }
   Mmenu();
+  LCD_Print(F("  <"),12,0);
+  
 }
 
 void loop () {
@@ -331,11 +334,18 @@ void PlaySong() { //Lets Play a Song
   LCD_Print(Fname[SongID],0,0);
   LCD_Print(SDVolume,0,1);
   tune_playscore (SDArray[SongID], Tesla_Duty_Cycle, Tesla_Max_usec, Tesla_Single_usec);  /* start playing */
-
+  
   while(tune_playing){
     digitalWrite(PC13,0);
   }
-
+  if (SongID < 1 ) SongID = 1;
+  
+  if(music){
+  lcd.clear();
+  LCD_Print(F(">"),0,0);
+  LCD_Print(Fname[SongID],1,0);
+  LCD_Print(Fname[SongID+1],0,1);
+  }
 }
 
 
