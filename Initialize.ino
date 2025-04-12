@@ -92,9 +92,10 @@ static uint16_t ticks_per_period[MAX_NOTE + 1];  // values may be larger in this
 //stm32 modification...........................................................
 #define MY_TIMER TIMER1                                                       //
 void timer_setup(uint32_t p_time){                                            //
+  p_time = p_time/2
   timer_pause(MY_TIMER);                                                      //
   // Set prescaler (assuming 72MHz clock, 1MHz timer clock)                   //
-  timer_set_prescaler(MY_TIMER, 72);                                          //
+  timer_set_prescaler(MY_TIMER, 72-1);                                          //
   //uint32_t x = 1000000;                                                     //
   // Set reload value (period_us interval at 1MHz timer clock)                //
   timer_set_reload(MY_TIMER, p_time);                                         //
